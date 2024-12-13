@@ -64,11 +64,9 @@ public class StationController {
         Choose lineChoose = inputView.getLineChoose();
         if (lineChoose == Choose.ADD) {
             String line = inputView.addLine();
-            stationService.makeLine(line);
             String startStation = inputView.addStartStation();
-            stationService.addStationInLine(line, startStation);
             String endStation = inputView.addEndStation();
-            stationService.addStationInLine(line, endStation);
+            stationService.makeLine(line, startStation, endStation);
             outputView.printSuccessMakeLine();
         }
         if (lineChoose == Choose.DELETE) {

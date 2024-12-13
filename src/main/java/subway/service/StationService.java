@@ -18,13 +18,13 @@ public class StationService {
     }
 
     // 노선 기능
-    public void makeLine(String line) {
+    public void makeLine(String line, String startStationName, String endStationName) {
+        lineRepository.checkHasLine(line);
+        Station startStation = stationRepository.getStation(startStationName);
+        Station endStation = stationRepository.getStation(endStationName);
         lineRepository.addLine(line);
-    }
-
-    public void addStationInLine(String lineName, String stationName) {
-        Station findStation = stationRepository.getStation(stationName);
-        lineRepository.addStation(lineName, findStation);
+        lineRepository.addStation(line, startStation);
+        lineRepository.addStation(line, endStation);
     }
 
     public List<String> getLines() {
@@ -45,8 +45,8 @@ public class StationService {
         Station station = stationRepository.getStation(stationName);
         lineRepository.deleteStation(line, station);
     }
-    // 역 기능
 
+    // 역 기능
     public void addStation(String stationName) {
         stationRepository.addStation(stationName);
     }

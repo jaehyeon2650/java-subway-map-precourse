@@ -24,23 +24,22 @@ public class LineRepository {
         }
     }
 
-    public boolean hasLine(String line) {
-        return lines.stream().anyMatch(next -> {
+    public void checkHasLine(String line) {
+        boolean hasLine = lines.stream().anyMatch(next -> {
             return next.getName().equals(line);
         });
+        if (hasLine) {
+            throw StationException.from(ErrorMessage.ALREADY_EXIST_LINE);
+        }
     }
 
     public void addLine(Line line) {
-        if (hasLine(line.getName())) {
-            throw StationException.from(ErrorMessage.ALREADY_EXIST_LINE);
-        }
+        checkHasLine(line.getName());
         lines.add(line);
     }
 
     public void addLine(String line) {
-        if (hasLine(line)) {
-            throw StationException.from(ErrorMessage.ALREADY_EXIST_LINE);
-        }
+        checkHasLine(line);
         lines.add(new Line(line));
     }
 
