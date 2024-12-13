@@ -10,43 +10,49 @@ public class OutputView {
 
     public void printError(String error) {
         System.out.print(error + LINE_SEPARATOR);
+        System.out.print(LINE_SEPARATOR);
     }
 
-    // 역
     public void printSuccessMakeStation() {
         printInfo("지하철 역이 등록되었습니다.");
+        System.out.print(LINE_SEPARATOR);
     }
 
     public void printStation(List<String> names) {
         System.out.print("## 역 목록" + LINE_SEPARATOR);
         names.forEach(this::printInfo);
+        System.out.print(LINE_SEPARATOR);
     }
 
     public void printSuccessDeleteStation() {
         printInfo("지하철 역이 삭제되었습니다.");
+        System.out.print(LINE_SEPARATOR);
     }
 
-    // 노선
     public void printSuccessMakeLine() {
         printInfo("지하철 노선이 등록되었습니다.");
+        System.out.print(LINE_SEPARATOR);
     }
 
     public void printLine(List<String> names) {
         System.out.print("## 노선 목록" + LINE_SEPARATOR);
         names.forEach(this::printInfo);
+        System.out.print(LINE_SEPARATOR);
     }
 
     public void printSuccessDeleteLine() {
         printInfo("지하철 노선이 삭제되었습니다.");
+        System.out.print(LINE_SEPARATOR);
     }
 
-    // 구간
     public void printSuccessMakePanel() {
         printInfo("구간이 등록되었습니다.");
+        System.out.print(LINE_SEPARATOR);
     }
 
     public void printSuccessDeletePanel() {
         printInfo("구간이 삭제되었습니다.");
+        System.out.print(LINE_SEPARATOR);
     }
 
     public void printAllSubwayInfo(StationAllInfo stationAllInfo) {
