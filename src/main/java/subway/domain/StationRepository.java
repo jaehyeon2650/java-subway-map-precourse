@@ -1,22 +1,33 @@
 package subway.domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import subway.exception.ErrorMessage;
+import subway.exception.StationException;
 
 public class StationRepository {
     private static final List<Station> stations = new ArrayList<>();
 
-    public static List<Station> stations() {
-        return Collections.unmodifiableList(stations);
+    public List<String> getStationsNames() {
+        return stations.stream().map(Station::getName).collect(Collectors.toList());
     }
 
-    public static void addStation(Station station) {
-        stations.add(station);
+    public void addStation(String name) {
+        boolean hasStation = stations.stream().anyMatch(station -> {
+            return station.getName().equals(name);
+        });
+        if (hasStation) {
+            throw StationException.from(ErrorMessage.ALREADY_EXIST_STATION);
+        }
+        stations.add(new Station(name));
     }
 
-    public static boolean deleteStation(String name) {
-        return stations.removeIf(station -> Objects.equals(station.getName(), name));
+    public void deleteStation(String name) {
+        if (!stations.removeIf(station -> Objects.equals(station.getName(), name))) {
+            throw StationException.from(ErrorMessage.NO_STATION);
+        }
     }
+
 }
