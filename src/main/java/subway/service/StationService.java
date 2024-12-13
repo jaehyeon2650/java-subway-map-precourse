@@ -2,6 +2,8 @@ package subway.service;
 
 import java.util.List;
 import subway.domain.Station;
+import subway.exception.ErrorMessage;
+import subway.exception.StationException;
 import subway.repository.LineRepository;
 import subway.repository.StationRepository;
 
@@ -47,4 +49,21 @@ public class StationService {
         lineRepository.deleteStation(line, station);
     }
     // 역 기능
+
+    public void addStation(String stationName) {
+        stationRepository.addStation(stationName);
+    }
+
+    public void deleteStation(String stationName) {
+        Station station = stationRepository.getStation(stationName);
+        boolean hasStation = lineRepository.checkStation(station);
+        if (hasStation) {
+            throw StationException.from(ErrorMessage.CANT_REMOVE_STATION);
+        }
+        stationRepository.deleteStation(stationName);
+    }
+
+    public List<String> getStationNames() {
+        return stationRepository.getStationsNames();
+    }
 }

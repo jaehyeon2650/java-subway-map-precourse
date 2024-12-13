@@ -15,6 +15,10 @@ public class Line {
         this.name = name;
     }
 
+    public boolean hasStation(Station findStation) {
+        return stations.stream().anyMatch(station -> station == findStation);
+    }
+
     public String getName() {
         return name;
     }
@@ -71,7 +75,7 @@ public class Line {
 
         private static void canDelete(List<Station> stations) {
             if (stations.size() <= 2) {
-                throw StationException.from(ErrorMessage.CANT_REMOVE_STATION);
+                throw StationException.from(ErrorMessage.CANT_REMOVE_STATION_IN_LINE);
             }
         }
     }

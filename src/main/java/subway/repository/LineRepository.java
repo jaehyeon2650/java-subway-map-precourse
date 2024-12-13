@@ -63,4 +63,14 @@ public class LineRepository {
         findLine.deleteStation(station);
     }
 
+    public boolean checkStation(Station station) {
+        boolean hasStation = false;
+        for (Line line : lines) {
+            boolean check = line.hasStation(station);
+            if (check) {
+                hasStation = true;
+            }
+        }
+        return hasStation;
+    }
 }
