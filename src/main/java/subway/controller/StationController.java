@@ -23,18 +23,7 @@ public class StationController {
         MainChoose mainChoose;
         do {
             mainChoose = retryInvalidInput(this::getMainChoose);
-            if (mainChoose == MainChoose.STATION) {
-                retryInvalidInput(this::startStationFunction);
-            }
-            if (mainChoose == MainChoose.LINE) {
-                retryInvalidInput(this::startLineFunction);
-            }
-            if (mainChoose == MainChoose.PANEL) {
-                retryInvalidInput(this::startPanelFunction);
-            }
-            if (mainChoose == MainChoose.INFO) {
-                outputView.printAllSubwayInfo(stationService.getStationAllInfo());
-            }
+            doFunction(mainChoose);
         } while (mainChoose != MainChoose.EXIT);
     }
 
@@ -42,58 +31,97 @@ public class StationController {
         return inputView.getMainChoose();
     }
 
+    private void doFunction(MainChoose mainChoose) {
+        if (mainChoose == MainChoose.STATION) {
+            retryInvalidInput(this::startStationFunction);
+        }
+        if (mainChoose == MainChoose.LINE) {
+            retryInvalidInput(this::startLineFunction);
+        }
+        if (mainChoose == MainChoose.PANEL) {
+            retryInvalidInput(this::startPanelFunction);
+        }
+        if (mainChoose == MainChoose.INFO) {
+            outputView.printAllSubwayInfo(stationService.getStationAllInfo());
+        }
+    }
+
 
     private void startStationFunction() {
         Choose stationChoose = inputView.getStationChoose();
         if (stationChoose == Choose.ADD) {
-            String station = inputView.addStation();
-            stationService.addStation(station);
-            outputView.printSuccessMakeStation();
+            addStation();
         }
         if (stationChoose == Choose.DELETE) {
-            String station = inputView.deleteStation();
-            stationService.deleteStation(station);
-            outputView.printSuccessDeleteStation();
+            deleteStation();
         }
         if (stationChoose == Choose.FIND) {
             outputView.printStation(stationService.getStationNames());
         }
     }
 
+    private void addStation() {
+        String station = inputView.addStation();
+        stationService.addStation(station);
+        outputView.printSuccessMakeStation();
+    }
+
+    private void deleteStation() {
+        String station = inputView.deleteStation();
+        stationService.deleteStation(station);
+        outputView.printSuccessDeleteStation();
+    }
+
     private void startLineFunction() {
         Choose lineChoose = inputView.getLineChoose();
         if (lineChoose == Choose.ADD) {
-            String line = inputView.addLine();
-            String startStation = inputView.addStartStation();
-            String endStation = inputView.addEndStation();
-            stationService.makeLine(line, startStation, endStation);
-            outputView.printSuccessMakeLine();
+            addLine();
         }
         if (lineChoose == Choose.DELETE) {
-            String line = inputView.deleteLine();
-            stationService.deleteLine(line);
-            outputView.printSuccessDeleteLine();
+            deleteLine();
         }
         if (lineChoose == Choose.FIND) {
             outputView.printLine(stationService.getLines());
         }
     }
 
+    private void addLine() {
+        String line = inputView.addLine();
+        String startStation = inputView.addStartStation();
+        String endStation = inputView.addEndStation();
+        stationService.makeLine(line, startStation, endStation);
+        outputView.printSuccessMakeLine();
+    }
+
+    private void deleteLine() {
+        String line = inputView.deleteLine();
+        stationService.deleteLine(line);
+        outputView.printSuccessDeleteLine();
+    }
+
     private void startPanelFunction() {
         Choose panelChoose = inputView.getPanelChoose();
         if (panelChoose == Choose.ADD) {
-            String line = inputView.getLineForPanel();
-            String station = inputView.getStationForPanel();
-            int index = inputView.getIndexForPanel();
-            stationService.insertStation(line, station, index);
-            outputView.printSuccessMakePanel();
+            addPanel();
         }
         if (panelChoose == Choose.DELETE) {
-            String line = inputView.getLineForDeletePanel();
-            String station = inputView.getStationForDeletePanel();
-            stationService.deleteStation(line, station);
-            outputView.printSuccessDeletePanel();
+            deletePanel();
         }
+    }
+
+    private void addPanel() {
+        String line = inputView.getLineForPanel();
+        String station = inputView.getStationForPanel();
+        int index = inputView.getIndexForPanel();
+        stationService.insertStation(line, station, index);
+        outputView.printSuccessMakePanel();
+    }
+
+    private void deletePanel() {
+        String line = inputView.getLineForDeletePanel();
+        String station = inputView.getStationForDeletePanel();
+        stationService.deleteStation(line, station);
+        outputView.printSuccessDeletePanel();
     }
 
     private <T> T retryInvalidInput(Supplier<T> supplier) {
