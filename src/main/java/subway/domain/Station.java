@@ -1,11 +1,14 @@
 package subway.domain;
 
 import java.util.Objects;
+import subway.exception.ErrorMessage;
+import subway.exception.StationException;
 
 public class Station {
     private String name;
 
     public Station(String name) {
+        Validator.validateName(name);
         this.name = name;
     }
 
@@ -28,5 +31,13 @@ public class Station {
     @Override
     public int hashCode() {
         return Objects.hashCode(name);
+    }
+
+    private static class Validator {
+        public static void validateName(String name) {
+            if (name.length() < 2) {
+                throw StationException.from(ErrorMessage.INVALID_STATION_NAME_LENGTH);
+            }
+        }
     }
 }
