@@ -56,4 +56,11 @@ public class LineRepository {
         return findLine.getStations();
     }
 
+    public void deleteStation(String lineName, Station station) {
+        Line findLine = lines.stream().filter(line -> {
+            return line.getName().equals(lineName);
+        }).findFirst().orElseThrow(() -> StationException.from(ErrorMessage.NO_LINE));
+        findLine.deleteStation(station);
+    }
+
 }

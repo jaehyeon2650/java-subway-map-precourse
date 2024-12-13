@@ -1,5 +1,7 @@
 package subway.service;
 
+import java.util.List;
+import subway.domain.Station;
 import subway.repository.LineRepository;
 import subway.repository.StationRepository;
 
@@ -17,6 +19,11 @@ public class StationService {
         lineRepository.addLine(line);
     }
 
+    public void addStationInLine(String lineName, String stationName) {
+        Station findStation = stationRepository.getStation(stationName);
+        lineRepository.addStation(lineName, findStation);
+    }
+
     public List<String> getLines() {
         return lineRepository.getLinesNames();
     }
@@ -26,9 +33,18 @@ public class StationService {
     }
 
     // 구간 기능
-    public void addStationInLine(String lineName, String stationName) {
-        Station findStation = stationRepository.getStation(stationName);
-        lineRepository.addStation(lineName, findStation);
+    public boolean hasLine(String lineName) {
+        return lineRepository.hasLine(lineName);
+    }
+
+    public void insertStation(String lineName, String stationName, int index) {
+        Station station = stationRepository.getStation(stationName);
+        lineRepository.addStationAt(lineName, index - 1, station);
+    }
+
+    public void deleteStation(String line, String stationName) {
+        Station station = stationRepository.getStation(stationName);
+        lineRepository.deleteStation(line, station);
     }
     // 역 기능
 }
