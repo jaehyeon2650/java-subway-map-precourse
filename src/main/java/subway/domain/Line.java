@@ -26,6 +26,7 @@ public class Line {
 
     public void addStationAt(Station station, int index) {
         Validator.validateDuplicateStation(stations, station);
+        Validator.validateIndex(stations, index);
         stations.add(index, station);
     }
 
@@ -53,6 +54,12 @@ public class Line {
         public static void validateDuplicateStation(List<Station> stations, Station station) {
             if (stations.contains(station)) {
                 throw StationException.from(ErrorMessage.INVALID_DUPLICATE_STATION_IN_LINE);
+            }
+        }
+
+        public static void validateIndex(List<Station> stations, int index) {
+            if (index < 0 || stations.size() < index) {
+                throw StationException.from(ErrorMessage.INVALID_INDEX_STATION_IN_LINE);
             }
         }
 
