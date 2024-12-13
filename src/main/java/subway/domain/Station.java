@@ -5,6 +5,8 @@ import subway.exception.ErrorMessage;
 import subway.exception.StationException;
 
 public class Station {
+    private static final int MIN_NAME_LENGTH = 2;
+
     private String name;
 
     public Station(String name) {
@@ -35,7 +37,7 @@ public class Station {
 
     private static class Validator {
         public static void validateName(String name) {
-            if (name.length() < 2) {
+            if (name.length() < MIN_NAME_LENGTH) {
                 throw StationException.from(ErrorMessage.INVALID_STATION_NAME_LENGTH);
             }
         }

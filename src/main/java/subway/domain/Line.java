@@ -7,6 +7,9 @@ import subway.exception.ErrorMessage;
 import subway.exception.StationException;
 
 public class Line {
+    private static final int MIM_NAME_LENGTH = 2;
+    private static final int MIM_STATION = 2;
+
     private String name;
     private final List<Station> stations = new ArrayList<>();
 
@@ -50,7 +53,7 @@ public class Line {
         }
 
         public static void validateNameLength(String name) {
-            if (name.length() < 2) {
+            if (name.length() < MIM_NAME_LENGTH) {
                 throw StationException.from(ErrorMessage.INVALID_LINE_NAME_LENGTH);
             }
         }
@@ -74,7 +77,7 @@ public class Line {
         }
 
         private static void canDelete(List<Station> stations) {
-            if (stations.size() <= 2) {
+            if (stations.size() <= MIM_STATION) {
                 throw StationException.from(ErrorMessage.CANT_REMOVE_STATION_IN_LINE);
             }
         }
