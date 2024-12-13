@@ -2,6 +2,7 @@ package subway.service;
 
 import java.util.List;
 import subway.domain.Station;
+import subway.dto.StationAllInfo;
 import subway.exception.ErrorMessage;
 import subway.exception.StationException;
 import subway.repository.LineRepository;
@@ -65,5 +66,10 @@ public class StationService {
 
     public List<String> getStationNames() {
         return stationRepository.getStationsNames();
+    }
+
+    // 지하철 노선도 출력
+    public StationAllInfo getStationAllInfo() {
+        return lineRepository.getStationAllInfo();
     }
 }

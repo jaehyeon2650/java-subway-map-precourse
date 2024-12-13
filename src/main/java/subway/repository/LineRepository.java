@@ -6,6 +6,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import subway.domain.Line;
 import subway.domain.Station;
+import subway.dto.StationAllInfo;
+import subway.dto.StationInfo;
 import subway.exception.ErrorMessage;
 import subway.exception.StationException;
 
@@ -72,5 +74,15 @@ public class LineRepository {
             }
         }
         return hasStation;
+    }
+
+    public StationAllInfo getStationAllInfo() {
+        List<StationInfo> infos = new ArrayList<>();
+        for (Line line : lines) {
+            String name = line.getName();
+            List<String> stations = line.getStations();
+            infos.add(new StationInfo(name, stations));
+        }
+        return new StationAllInfo(infos);
     }
 }
