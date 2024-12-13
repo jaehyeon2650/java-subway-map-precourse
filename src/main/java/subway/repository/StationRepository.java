@@ -15,6 +15,16 @@ public class StationRepository {
         return stations.stream().map(Station::getName).collect(Collectors.toList());
     }
 
+    public void addStation(Station newStation) {
+        boolean hasStation = stations.stream().anyMatch(station -> {
+            return station.getName().equals(newStation.getName());
+        });
+        if (hasStation) {
+            throw StationException.from(ErrorMessage.ALREADY_EXIST_STATION);
+        }
+        stations.add(newStation);
+    }
+
     public void addStation(String name) {
         boolean hasStation = stations.stream().anyMatch(station -> {
             return station.getName().equals(name);

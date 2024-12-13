@@ -36,10 +36,6 @@ public class StationService {
     }
 
     // 구간 기능
-    public boolean hasLine(String lineName) {
-        return lineRepository.hasLine(lineName);
-    }
-
     public void insertStation(String lineName, String stationName, int index) {
         Station station = stationRepository.getStation(stationName);
         lineRepository.addStationAt(lineName, index - 1, station);

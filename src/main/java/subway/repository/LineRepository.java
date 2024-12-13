@@ -30,6 +30,13 @@ public class LineRepository {
         });
     }
 
+    public void addLine(Line line) {
+        if (hasLine(line.getName())) {
+            throw StationException.from(ErrorMessage.ALREADY_EXIST_LINE);
+        }
+        lines.add(line);
+    }
+
     public void addLine(String line) {
         if (hasLine(line)) {
             throw StationException.from(ErrorMessage.ALREADY_EXIST_LINE);
