@@ -31,4 +31,10 @@ public class StationRepository {
         }
     }
 
+    public Station getStation(String stationName) {
+        return stations.stream().filter(station -> {
+            return station.getName().equals(stationName);
+        }).findFirst().orElseThrow(() -> StationException.from(ErrorMessage.NO_STATION));
+    }
+
 }

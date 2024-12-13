@@ -12,7 +12,7 @@ import subway.exception.StationException;
 public class LineRepository {
     private static final List<Line> lines = new ArrayList<>();
 
-    public List<String> lines() {
+    public List<String> getLinesNames() {
         return lines.stream().map(Line::getName).collect(Collectors.toList());
     }
 
