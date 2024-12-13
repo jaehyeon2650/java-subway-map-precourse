@@ -11,7 +11,8 @@ public enum ErrorMessage {
     INVALID_STATION_NAME_LENGTH("지하철 역의 이름은 2글자 이상이어야합니다."),
     NO_STATION("해당 지하철 역 이름은 존재하지 않습니다."),
     ALREADY_EXIST_STATION("해당 역은 이미 존재합니다."),
-    CANT_REMOVE_STATION("노선에 존재하는 역은 삭제가 불가능합니다.");
+    CANT_REMOVE_STATION("노선에 존재하는 역은 삭제가 불가능합니다."),
+    INVALID_INPUT("목록에서 정확히 입력해주세요");
 
     private final String message;
 
